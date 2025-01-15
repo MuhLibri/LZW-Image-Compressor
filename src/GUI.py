@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import os
 import pickle
 import LZW
+import math
 
 
 class GUI:
@@ -32,7 +33,7 @@ class GUI:
         # Max bit input
         self.max_bits_frame = tk.Frame(root)
         self.max_bits_frame.pack(pady=10)
-        self.max_bits_label = tk.Label(self.max_bits_frame, text="Max Bits (8-12):")
+        self.max_bits_label = tk.Label(self.max_bits_frame, text="Max Bits (8-16):")
         self.max_bits_label.grid(row=0, column=0, padx=5)
         self.max_bits_entry = tk.Entry(self.max_bits_frame, width=5)
         self.max_bits_entry.grid(row=0, column=1, padx=5)
@@ -94,7 +95,7 @@ class GUI:
             compressed_size += current_bits
 
         compression_ratio = compressed_size / original_size * 100
-        self.info_label.config(text=f"Compression complete! \nOriginal size: {original_size} bits ({original_size/8} bytes) \nCompressed size: {compressed_size} bits ({compressed_size/8} bytes) \nCompression Ratio: {compression_ratio:.2f}%")
+        self.info_label.config(text=f"Compression complete! \nOriginal size: {original_size} bits ({math.ceil(original_size/8)} bytes) \nCompressed size: {compressed_size} bits ({math.ceil(compressed_size/8)} bytes) \nCompression Ratio: {compression_ratio:.2f}%")
 
     def download_compressed(self):
         if not self.compressed_data:
